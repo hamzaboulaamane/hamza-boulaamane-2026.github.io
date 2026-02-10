@@ -25,7 +25,7 @@ about | skills | projects | education | contact | clear
       break;
 
     case "skills":
-      print("Python, C, HTML, CSS, JavaScript, Linux, Networking, ML basics,UML");
+      print("Python, C, HTML, CSS, JavaScript, Linux, Networking, ML basics");
       break;
 
     case "projects":
@@ -37,7 +37,7 @@ about | skills | projects | education | contact | clear
       break;
 
     case "contact":
-      print("Email: hamzaboulaamane06@email.com\nGitHub: github.com/hamza boulaamane");
+      print("Email: your@email.com\nGitHub: github.com/yourname");
       break;
 
     case "clear":
