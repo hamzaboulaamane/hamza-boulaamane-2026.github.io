@@ -16,7 +16,7 @@ function handleCommand(cmd) {
     case "help":
       print(`
 Available commands:
-about | skills | projects | education | contact | clear
+about | skills | projects | education | contact | clear | why should we hire you
 `);
       break;
 
@@ -42,6 +42,10 @@ about | skills | projects | education | contact | clear
 
     case "clear":
       output.innerHTML = "";
+      break;
+
+    case "why should we hire you":
+      print("I'm a dedicated student with strong technical skills in AI and cybersecurity. I'm passionate about solving real-world problems and contributing to innovative projects.");
       break;
 
     default:
