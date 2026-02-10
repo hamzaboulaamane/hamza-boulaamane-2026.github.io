@@ -1,0 +1,41 @@
+body {
+  background-color: #0a0a0a;
+  color: #00ff9c;
+  font-family: monospace;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.terminal {
+  width: 80%;
+  max-width: 900px;
+  height: 80vh;
+  border: 2px solid #00ff9c;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.prompt {
+  color: #00ffaa;
+}
+
+.cmd {
+  color: #ffffff;
+}
+
+.input-line {
+  display: flex;
+}
+
+input {
+  background: transparent;
+  border: none;
+  color: #00ff9c;
+  outline: none;
+  width: 100%;
+  font-family: monospace;
+  font-size: 1rem;
+}
