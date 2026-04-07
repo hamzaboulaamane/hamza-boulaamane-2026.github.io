@@ -2,7 +2,6 @@ body {
   margin: 0;
   font-family: sans-serif;
   background-image: url('kali-mental.jpg');
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -17,7 +16,7 @@ body {
 .icon {
   width: 80px;
   text-align: center;
-  color: white;
+  color: rgb(0, 0, 0);
   cursor: pointer;
 }
 
