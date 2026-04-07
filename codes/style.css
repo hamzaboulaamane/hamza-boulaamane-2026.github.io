@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: url('https://wallpapercave.com/wp/wp4056399.jpg') no-repeat center/cover;
+  background-image: url('kali-mental.jpg');
   height: 100vh;
   overflow: hidden;
 }
@@ -112,4 +112,5 @@ body {
 
 #clock {
   color: white;
+  text-align: center;
 }
