@@ -7,16 +7,59 @@
 </head>
 <body>
 
-<div class="terminal">
-  <div id="output">
-    <p>HamzaOS v1.0</p>
-    <p>Type <span class="cmd">help</span> to get started.</p>
+<!-- Desktop -->
+<div id="desktop">
+
+  <div class="icon" ondblclick="openWindow('about')">
+    <img src="https://img.icons8.com/fluency/48/user.png">
+    <span>About</span>
   </div>
 
-  <div class="input-line">
-    <span class="prompt">hamza@portfolio:~$</span>
-    <input type="text" id="command" autofocus />
+  <div class="icon" ondblclick="openWindow('projects')">
+    <img src="https://img.icons8.com/fluency/48/folder-invoices.png">
+    <span>Projects</span>
   </div>
+
+  <div class="icon" ondblclick="openWindow('certificates')">
+    <img src="https://img.icons8.com/fluency/48/certificate.png">
+    <span>Certificates</span>
+  </div>
+
+  <div class="icon" ondblclick="openWindow('contact')">
+    <img src="https://img.icons8.com/fluency/48/new-post.png">
+    <span>Contact</span>
+  </div>
+
+  <!-- Terminal Icon -->
+  <div class="icon" ondblclick="openWindow('terminal')">
+    <img src="https://img.icons8.com/fluency/48/console.png">
+    <span>Terminal</span>
+  </div>
+
+</div>
+
+<!-- Windows Container -->
+<div id="windows"></div>
+
+<!-- Hidden Terminal Template -->
+<template id="terminal-template">
+  <div class="terminal">
+    <div id="output">
+      <p>HamzaOS v1.0</p>
+      <p>Type <span class="cmd">help</span> to get started.</p>
+    </div>
+
+    <div class="input-line">
+      <span class="prompt">hamza@portfolio:~$</span>
+      <input type="text" id="command" />
+    </div>
+  </div>
+</template>
+
+<!-- Taskbar -->
+<div id="taskbar">
+  <div id="tasks"></div>
+  <div id="clock"></div>
 </div>
 
 <script src="script.js"></script>

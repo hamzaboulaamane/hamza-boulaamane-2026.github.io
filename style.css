@@ -1,41 +1,115 @@
 body {
-  background-color: #0a0a0a;
-  color: #00ff9c;
-  font-family: monospace;
   margin: 0;
+  font-family: sans-serif;
+  background: url('https://wallpaperaccess.com/full/317501.jpg') no-repeat center/cover;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
 }
 
-.terminal {
-  width: 80%;
-  max-width: 900px;
-  height: 80vh;
-  border: 2px solid #00ff9c;
+/* Desktop Icons */
+#desktop {
   padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.icon {
+  width: 80px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.icon img {
+  width: 48px;
+}
+
+/* Windows */
+.window {
+  position: absolute;
+  width: 400px;
+  background: #1e1e1e;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  overflow: hidden;
+  animation: open 0.2s ease;
+}
+
+@keyframes open {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.title-bar {
+  background: #333;
+  padding: 8px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-btn {
+  cursor: pointer;
+  color: red;
+}
+
+.content {
+  padding: 10px;
+}
+
+/* Terminal */
+.terminal {
+  background: black;
+  color: #00ff00;
+  font-family: monospace;
+  padding: 10px;
+  height: 300px;
   overflow-y: auto;
-}
-
-.prompt {
-  color: #00ffaa;
-}
-
-.cmd {
-  color: #ffffff;
 }
 
 .input-line {
   display: flex;
+  align-items: center;
 }
 
-input {
-  background: transparent;
+.prompt {
+  margin-right: 5px;
+  color: #00ff00;
+}
+
+.cmd {
+  color: yellow;
+}
+
+#command {
+  flex: 1;
+  background: black;
+  color: #00ff00;
   border: none;
-  color: #00ff9c;
   outline: none;
-  width: 100%;
   font-family: monospace;
-  font-size: 1rem;
+}
+
+/* Taskbar */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(30,30,30,0.9);
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+#tasks div {
+  display: inline-block;
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+#clock {
+  color: white;
 }
