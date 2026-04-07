@@ -104,10 +104,14 @@ function addTask(win) {
     else win.style.display = 'none';
   }
   tasks.appendChild(taskBtn);
-  win.dataset.taskBtn = taskBtn;
+
+  // Store the actual element, not a string
+  win._taskBtn = taskBtn;
 }
 
 function removeTask(win) {
-  const btn = win.dataset.taskBtn;
-  if(btn) btn.remove();
+  if(win._taskBtn) {
+    win._taskBtn.remove();
+    delete win._taskBtn; // optional, clean up reference
+  }
 }
