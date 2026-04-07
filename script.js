@@ -99,19 +99,24 @@ function makeDraggable(win) {
 function addTask(win) {
   const taskBtn = document.createElement('button');
   taskBtn.textContent = win.querySelector('.window-title').textContent;
-  taskBtn.onclick = () => {
+
+  // Toggle window visibility
+  taskBtn.addEventListener('click', () => {
     if(win.style.display === 'none') win.style.display = 'flex';
     else win.style.display = 'none';
-  }
+    // bring to front
+    win.style.zIndex = Date.now();
+  });
+
   tasks.appendChild(taskBtn);
 
-  // Store the actual element, not a string
-  win._taskBtn = taskBtn;
+  // Store the actual button element in a property of the window
+  win.taskBtn = taskBtn;
 }
 
 function removeTask(win) {
-  if(win._taskBtn) {
-    win._taskBtn.remove();
-    delete win._taskBtn; // optional, clean up reference
+  if(win.taskBtn) {
+    win.taskBtn.remove();  // remove button from DOM
+    delete win.taskBtn;    // optional cleanup
   }
 }
