@@ -9,49 +9,64 @@
 
 <!-- Desktop -->
 <div id="desktop">
-
-  <div class="icon" ondblclick="openWindow('about')">
-    <img src="https://img.icons8.com/fluency/48/user.png">
+  <div class="icon" data-window="about">
     <span>About</span>
   </div>
 
-  <div class="icon" ondblclick="openWindow('projects')">
+  <div class="icon" data-window="projects">
     <img src="https://img.icons8.com/fluency/48/folder-invoices.png">
     <span>Projects</span>
   </div>
 
-  <div class="icon" ondblclick="openWindow('certificates')">
+  <div class="icon" data-window="certificates">
     <img src="https://img.icons8.com/fluency/48/certificate.png">
     <span>Certificates</span>
   </div>
 
-  <div class="icon" ondblclick="openWindow('contact')">
+  <div class="icon" data-window="contact">
     <img src="https://img.icons8.com/fluency/48/new-post.png">
     <span>Contact</span>
   </div>
 
-  <!-- Terminal Icon -->
-  <div class="icon" ondblclick="openWindow('terminal')">
+  <div class="icon" data-window="terminal">
     <img src="https://img.icons8.com/fluency/48/console.png">
     <span>Terminal</span>
   </div>
 
+  <!-- Social Links -->
+  <div class="icon" onclick="window.open('https://github.com/hamzaboulaamane', '_blank')">
+    <img src="https://img.icons8.com/fluency/48/github.png">
+    <span>GitHub</span>
+  </div>
+
+  <div class="icon" onclick="window.open('https://www.linkedin.com/in/hamza-boulaamane-34bab4269/', '_blank')">
+    <img src="https://img.icons8.com/fluency/48/linkedin.png">
+    <span>LinkedIn</span>
+  </div>
 </div>
 
 <!-- Windows Container -->
 <div id="windows"></div>
 
-<!-- Hidden Terminal Template -->
+<!-- Terminal Template -->
 <template id="terminal-template">
-  <div class="terminal">
-    <div id="output">
-      <p>HamzaOS v1.0</p>
-      <p>Type <span class="cmd">help</span> to get started.</p>
+  <div class="window terminal" data-title="Terminal">
+    <div class="window-header">
+      <span class="window-title">Terminal</span>
+      <div class="window-controls">
+        <button class="minimize">_</button>
+        <button class="close">×</button>
+      </div>
     </div>
-
-    <div class="input-line">
-      <span class="prompt">hamza@portfolio:~$</span>
-      <input type="text" id="command" />
+    <div class="window-content">
+      <div class="output">
+        <p>HamzaOS v1.0</p>
+        <p>Type <span class="cmd">help</span> to get started.</p>
+      </div>
+      <div class="input-line">
+        <span class="prompt">hamza@portfolio:~$</span>
+        <input type="text" class="command-input" />
+      </div>
     </div>
   </div>
 </template>
@@ -60,15 +75,6 @@
 <div id="taskbar">
   <div id="tasks"></div>
   <div id="clock"></div>
-</div>
-<div class="icon" ondblclick="window.open('https://github.com/hamzaboulaamane', '_blank')">
-    <img src="https://img.icons8.com/fluency/48/github.png">
-  <span>GitHub</span>
-</div>
-
-<div class="icon" ondblclick="window.open('https://www.linkedin.com/in/hamza-boulaamane-34bab4269/', '_blank')">
-  <img src="https://img.icons8.com/fluency/48/linkedin.png">
-  <span>LinkedIn</span>
 </div>
 
 <script src="script.js"></script>

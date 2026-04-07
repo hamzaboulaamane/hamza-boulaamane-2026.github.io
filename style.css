@@ -1,71 +1,78 @@
-body {
+/* Desktop */
+body, html {
   margin: 0;
-  font-family: sans-serif;
-  background-image: url('kali-mental-dark.png');
+  padding: 0;
+  height: 100%;
+  font-family: monospace;
+  background: url('kali-metal-dark.png') no-repeat center center fixed;
+  background-size: cover;
   overflow: hidden;
 }
 
-/* Desktop Icons */
 #desktop {
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .icon {
   width: 80px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: white;
+  position: absolute;
   cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s;
+}
+.icon:hover {
+  transform: scale(1.1);
 }
 
-.icon img {
-  width: 48px;
-}
-
-/* Windows */
+/* Window Styles */
 .window {
   position: absolute;
   width: 400px;
-  background: #1e1e1e;
+  height: 300px;
+  background-color: #1e1e1e;
+  border: 2px solid #555;
+  border-radius: 8px;
   color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px black;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease;
+  resize: both;
   overflow: hidden;
-  animation: open 0.2s ease;
+  z-index: 10;
 }
 
-@keyframes open {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.title-bar {
+.window-header {
   background: #333;
-  padding: 8px;
+  padding: 5px 10px;
   cursor: move;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.close-btn {
+.window-controls button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  color: red;
 }
 
-.content {
+.window-content {
+  flex: 1;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Terminal */
-.terminal {
-  background: black;
-  color: #00ff00;
-  font-family: monospace;
-  padding: 10px;
-  height: 300px;
+.output {
+  flex: 1;
   overflow-y: auto;
+  margin-bottom: 5px;
 }
 
 .input-line {
@@ -73,48 +80,41 @@ body {
   align-items: center;
 }
 
-.prompt {
-  margin-right: 5px;
-  color: #00ff00;
-}
-
-.cmd {
-  color: yellow;
-}
-
-#command {
-  flex: 1;
+.input-line input {
   background: black;
-  color: #00ff00;
   border: none;
+  color: white;
+  flex: 1;
   outline: none;
   font-family: monospace;
 }
 
 /* Taskbar */
 #taskbar {
-  position: fixed;
+  position: absolute;
   bottom: 0;
+  left: 0;
+  height: 40px;
   width: 100%;
-  background: rgba(30,30,30,0.9);
+  background: rgba(50,50,50,0.9);
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+  align-items: center;
+  color: white;
+  padding: 0 10px;
 }
 
-#tasks div {
-  display: inline-block;
-  margin-right: 10px;
-  color: white;
-  cursor: pointer;
+#tasks {
+  display: flex;
+  gap: 10px;
 }
 
 #clock {
-  color: white;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 50px; /* adjust as needed */
+  font-family: monospace;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8);}
+  to { opacity: 1; transform: scale(1);}
 }
