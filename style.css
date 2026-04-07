@@ -4,7 +4,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: monospace;
-  background: url('images/kali-metal-dark.png') no-repeat center center fixed;
+  background: url('../images/kali-metal-dark.png') no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
 }
@@ -15,9 +15,12 @@ body, html {
   grid-auto-rows: 100px;
   gap: 20px;
   padding: 20px;
+  justify-items: center;
+  align-items: center;
 }
+
 .icon {
-  position: relative; /* remove absolute positioning */
+  position: relative;
   text-align: center;
   cursor: pointer;
 }
@@ -65,6 +68,7 @@ body, html {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .output {
@@ -104,10 +108,6 @@ body, html {
   z-index: 1000;
 }
 
-#clock {
-  font-size: 14px;
-}
-
 #tasks {
   display: flex;
   gap: 10px;
@@ -115,6 +115,7 @@ body, html {
 
 #clock {
   font-family: monospace;
+  font-size: 14px;
 }
 
 /* Animations */
