@@ -253,14 +253,3 @@ body::before {
     transform: scale(1);
   }
 }
-.certificates-grid {
-  display: flex;
-  flex-direction: column; /* stack vertically */
-  gap: 20px; /* space between PDFs */
-}
-
-.certificates-grid iframe {
-  width: 100%;
-  height: 500px; /* adjust as needed */
-  border: none;
-}
