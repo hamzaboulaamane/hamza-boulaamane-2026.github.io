@@ -26,13 +26,11 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// 🖱️ Desktop icon click
+// 🖱️ Desktop icon click (UPDATED ✅)
 desktop.querySelectorAll('.icon').forEach(icon => {
-  icon.addEventListener('dblclick', () => {
-    const type = icon.dataset.window;
 
-    // 👉 External link case (X)
-    if (!type && icon.onclick) return;
+  const open = () => {
+    const type = icon.dataset.window;
 
     if (externalLinks[type]) {
       window.open(externalLinks[type], '_blank');
@@ -40,6 +38,20 @@ desktop.querySelectorAll('.icon').forEach(icon => {
     }
 
     openWindow(type);
+  };
+
+  // Double click (OS style)
+  icon.addEventListener('dblclick', open);
+
+  // Single click (modern UX)
+  icon.addEventListener('click', open);
+
+  // Keyboard accessibility
+  icon.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      open();
+    }
   });
 });
 

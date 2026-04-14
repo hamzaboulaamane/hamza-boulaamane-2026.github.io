@@ -1,3 +1,5 @@
+/* ================= ROOT ================= */
+
 :root {
   --desktop-bg: url('image.png');
 }
@@ -28,13 +30,23 @@ body::before {
   position: relative;
   z-index: 2;
 
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 30px;
+  display: flex;              /* 🔥 horizontal layout */
+  align-items: flex-start;
+  gap: 30px;                 /* space between icons */
+
   padding: 30px;
 
-  align-items: start;
-  justify-items: center;
+  overflow-x: auto;          /* scroll if many icons */
+}
+
+/* Optional scrollbar styling */
+#desktop::-webkit-scrollbar {
+  height: 6px;
+}
+
+#desktop::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
 }
 
 /* ================= ICONS ================= */
@@ -46,6 +58,7 @@ body::before {
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease;
+  flex-shrink: 0; /* prevent shrinking */
 }
 
 .icon:hover {
@@ -57,13 +70,19 @@ body::before {
   height: 48px;
 }
 
-/* ✅ FIX: BLACK LABELS */
+/* ✅ BLACK LABELS */
 .icon span {
   display: block;
   margin-top: 6px;
   font-size: 12px;
   font-weight: 500;
   color: black;
+}
+
+/* Focus for accessibility */
+.icon:focus {
+  outline: 2px solid #4da6ff;
+  outline-offset: 2px;
 }
 
 /* ================= WINDOWS ================= */
