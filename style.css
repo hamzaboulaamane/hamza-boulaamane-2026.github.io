@@ -15,7 +15,7 @@ body, html {
   background-size: cover;
 }
 
-/* Prevent background elements blocking clicks */
+/* Prevent background blocking clicks */
 body::before {
   content: "";
   position: fixed;
@@ -24,22 +24,23 @@ body::before {
   pointer-events: none;
 }
 
-/* ================= DESKTOP ================= */
+/* ================= DESKTOP (DESKTOP VIEW) ================= */
 
 #desktop {
   position: relative;
   z-index: 2;
 
-  display: flex;              /* 🔥 horizontal layout */
+  display: flex;              /* ✅ one horizontal line */
   align-items: flex-start;
-  gap: 30px;                 /* space between icons */
 
+  gap: 30px;                  /* spacing between icons */
   padding: 30px;
 
-  overflow-x: auto;          /* scroll if many icons */
+  overflow-x: auto;          /* scroll if too many icons */
+  overflow-y: hidden;
 }
 
-/* Optional scrollbar styling */
+/* Scrollbar */
 #desktop::-webkit-scrollbar {
   height: 6px;
 }
@@ -54,9 +55,11 @@ body::before {
 .icon {
   position: relative;
   z-index: 2;
+
   width: 90px;
   text-align: center;
   cursor: pointer;
+
   transition: transform 0.2s ease;
   flex-shrink: 0; /* prevent shrinking */
 }
@@ -70,7 +73,6 @@ body::before {
   height: 48px;
 }
 
-/* ✅ BLACK LABELS */
 .icon span {
   display: block;
   margin-top: 6px;
@@ -79,7 +81,6 @@ body::before {
   color: black;
 }
 
-/* Focus for accessibility */
 .icon:focus {
   outline: 2px solid #4da6ff;
   outline-offset: 2px;
@@ -89,8 +90,10 @@ body::before {
 
 .window {
   position: absolute;
+
   width: 420px;
   height: 320px;
+
   background: #1e1e1e;
   color: white;
   border-radius: 10px;
@@ -102,6 +105,10 @@ body::before {
   animation: fadeIn 0.2s ease;
 
   z-index: 10;
+
+  /* ✅ responsive safety */
+  max-width: 90vw;
+  max-height: 80vh;
 }
 
 .window-header {
@@ -109,6 +116,7 @@ body::before {
   padding: 6px 10px;
 
   cursor: move;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -127,6 +135,7 @@ body::before {
   background: transparent;
   border: none;
   color: white;
+
   cursor: pointer;
   padding: 2px 6px;
 }
@@ -147,19 +156,23 @@ body::before {
   height: 40px;
 
   background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   padding: 0 10px;
   color: white;
+
   z-index: 1000;
-  backdrop-filter: blur(6px);
 }
 
 #tasks {
   display: flex;
   gap: 6px;
+
+  overflow-x: auto; /* ✅ prevents overflow */
 }
 
 #tasks button {
@@ -169,6 +182,7 @@ body::before {
 
   padding: 4px 8px;
   border-radius: 4px;
+
   font-size: 12px;
   cursor: pointer;
 }
@@ -177,9 +191,54 @@ body::before {
   background: rgba(255,255,255,0.2);
 }
 
-/* Clock */
 #clock {
   font-size: 14px;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+  /* 🔥 convert desktop icons to grid */
+  #desktop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 20px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon span {
+    font-size: 11px;
+  }
+
+  /* 🔥 windows adapt to screen */
+  .window {
+    width: 95vw;
+    height: 85vh;
+
+    top: 5vh !important;
+    left: 2.5vw !important;
+  }
+
+  /* taskbar wraps */
+  #taskbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 5px;
+  }
+
+  #clock {
+    width: 100%;
+    text-align: right;
+    font-size: 12px;
+  }
 }
 
 /* ================= ANIMATION ================= */

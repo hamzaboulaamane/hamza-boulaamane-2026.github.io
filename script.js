@@ -2,7 +2,7 @@ const desktop = document.getElementById('desktop');
 const windowsContainer = document.getElementById('windows');
 const tasks = document.getElementById('tasks');
 
-// ✅ Templates mapping (IMPORTANT)
+// Templates
 const templates = {
   terminal: 'terminal-template',
   cv: 'cv-template',
@@ -13,7 +13,7 @@ const templates = {
   contact: 'contact-template'
 };
 
-// 🌐 External links (like X)
+// External links
 const externalLinks = {
   x: 'https://twitter.com/YOUR_USERNAME'
 };
@@ -26,7 +26,7 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// 🖱️ Desktop icon click (UPDATED ✅)
+// Desktop icons
 desktop.querySelectorAll('.icon').forEach(icon => {
 
   const open = () => {
@@ -40,13 +40,9 @@ desktop.querySelectorAll('.icon').forEach(icon => {
     openWindow(type);
   };
 
-  // Double click (OS style)
   icon.addEventListener('dblclick', open);
-
-  // Single click (modern UX)
   icon.addEventListener('click', open);
 
-  // Keyboard accessibility
   icon.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -55,27 +51,26 @@ desktop.querySelectorAll('.icon').forEach(icon => {
   });
 });
 
-// 🪟 Open Window (MODERN VERSION)
+// Open window
 function openWindow(type) {
   const templateId = templates[type];
-
   if (!templateId) return;
 
   const template = document.getElementById(templateId);
-  const win = template.content.cloneNode(true).querySelector('.window');
+  if (!template) return;
 
+  const win = template.content.cloneNode(true).querySelector('.window');
   windowsContainer.appendChild(win);
 
   makeDraggable(win);
   addTask(win);
 
-  // Close button
   win.querySelector('.close').addEventListener('click', () => {
     removeTask(win);
     win.remove();
   });
 
-  // Terminal logic ONLY
+  // Terminal logic
   if (type === 'terminal') {
     const input = win.querySelector('.command-input');
 
@@ -90,7 +85,7 @@ function openWindow(type) {
   }
 }
 
-// 💻 Terminal commands
+// Terminal commands
 function handleCommand(cmd, output) {
   let result = '';
 
@@ -127,35 +122,50 @@ function handleCommand(cmd, output) {
   output.scrollTop = output.scrollHeight;
 }
 
-// 🧲 Drag windows
+// Drag (Mouse + Touch)
 function makeDraggable(win) {
   const header = win.querySelector('.window-header');
   let isDown = false;
   let offsetX = 0;
   let offsetY = 0;
 
-  header.addEventListener('mousedown', (e) => {
+  function startDrag(e) {
     isDown = true;
 
-    offsetX = e.clientX - win.offsetLeft;
-    offsetY = e.clientY - win.offsetTop;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    offsetX = clientX - win.offsetLeft;
+    offsetY = clientY - win.offsetTop;
 
     win.style.zIndex = Date.now();
-  });
+  }
 
-  document.addEventListener('mousemove', (e) => {
+  function drag(e) {
     if (!isDown) return;
 
-    win.style.left = e.clientX - offsetX + 'px';
-    win.style.top = e.clientY - offsetY + 'px';
-  });
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-  document.addEventListener('mouseup', () => {
+    win.style.left = clientX - offsetX + 'px';
+    win.style.top = clientY - offsetY + 'px';
+  }
+
+  function stopDrag() {
     isDown = false;
-  });
+  }
+
+  header.addEventListener('mousedown', startDrag);
+  header.addEventListener('touchstart', startDrag);
+
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('touchmove', drag);
+
+  document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchend', stopDrag);
 }
 
-// 📌 Taskbar
+// Taskbar
 function addTask(win) {
   const taskBtn = document.createElement('button');
   taskBtn.textContent = win.querySelector('.window-title').textContent;

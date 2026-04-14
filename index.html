@@ -9,31 +9,42 @@
 
 <!-- Desktop -->
 <div id="desktop">
-  <div class="icon" data-window="about">
+
+  <div class="icon" data-window="about" tabindex="0">
     <span>About</span>
   </div>
 
-  <div class="icon" data-window="projects">
+  <div class="icon" data-window="projects" tabindex="0">
     <img src="https://img.icons8.com/fluency/48/folder-invoices.png">
     <span>Projects</span>
   </div>
 
-  <div class="icon" data-window="certificates">
+  <div class="icon" data-window="certificates" tabindex="0">
     <img src="https://img.icons8.com/fluency/48/certificate.png">
     <span>Certificates</span>
   </div>
 
-  <div class="icon" data-window="contact">
+  <div class="icon" data-window="contact" tabindex="0">
     <img src="https://img.icons8.com/fluency/48/new-post.png">
     <span>Contact</span>
   </div>
 
-  <div class="icon" data-window="terminal">
+  <div class="icon" data-window="terminal" tabindex="0">
     <img src="https://img.icons8.com/fluency/48/console.png">
     <span>Terminal</span>
   </div>
 
-  <!-- Social Links -->
+  <div class="icon" data-window="cv" tabindex="0">
+    <img src="https://img.icons8.com/fluency/48/resume.png">
+    <span>CV</span>
+  </div>
+
+  <div class="icon" data-window="education" tabindex="0">
+    <img src="https://img.icons8.com/fluency/48/graduation-cap.png">
+    <span>Education</span>
+  </div>
+
+  <!-- External links -->
   <div class="icon" onclick="window.open('https://github.com/hamzaboulaamane', '_blank')">
     <img src="https://img.icons8.com/fluency/48/github.png">
     <span>GitHub</span>
@@ -43,25 +54,20 @@
     <img src="https://img.icons8.com/fluency/48/linkedin.png">
     <span>LinkedIn</span>
   </div>
+
+  <div class="icon" onclick="window.open('https://twitter.com/YOUR_USERNAME', '_blank')">
+    <img src="icon.png">
+    <span>X</span>
+  </div>
+
 </div>
 
-<div class="icon" data-window="cv">
-  <img src="https://img.icons8.com/fluency/48/resume.png">
-  <span>CV</span>
-</div>
+<!-- Windows Container -->
+<div id="windows"></div>
 
-<div class="icon" data-window="education">
-  <img src="https://img.icons8.com/fluency/48/graduation-cap.png">
-  <span>Education</span>
-</div>
-
-<div class="icon" onclick="window.open('https://twitter.com/YOUR_USERNAME', '_blank')">
-  <img src="icon.png">
-  <span>X</span>
-</div>
-
+<!-- CV Template -->
 <template id="cv-template">
-  <div class="window" data-title="CV">
+  <div class="window">
     <div class="window-header">
       <span class="window-title">My CV</span>
       <div class="window-controls">
@@ -70,7 +76,7 @@
       </div>
     </div>
     <div class="window-content">
-      <iframe src="cv.pdf" width="100%" height="400px"></iframe>
+      <iframe src="cv.pdf" style="width:100%; height:60vh;"></iframe>
       <br>
       <a href="cv.pdf" download>
         <button>⬇ Download CV</button>
@@ -79,8 +85,9 @@
   </div>
 </template>
 
+<!-- Education Template -->
 <template id="education-template">
-  <div class="window" data-title="Education">
+  <div class="window">
     <div class="window-header">
       <span class="window-title">Education Cursus</span>
       <div class="window-controls">
@@ -103,12 +110,9 @@
   </div>
 </template>
 
-<!-- Windows Container -->
-<div id="windows"></div>
-
 <!-- Terminal Template -->
 <template id="terminal-template">
-  <div class="window terminal" data-title="Terminal">
+  <div class="window terminal">
     <div class="window-header">
       <span class="window-title">Terminal</span>
       <div class="window-controls">
@@ -125,6 +129,25 @@
         <span class="prompt">hamza@portfolio:~$</span>
         <input type="text" class="command-input" />
       </div>
+    </div>
+  </div>
+</template>
+
+<!-- ✅ ADD CERTIFICATES HERE -->
+<template id="certificates-template">
+  <div class="window">
+    <div class="window-header">
+      <span class="window-title">Certificates</span>
+      <div class="window-controls">
+        <button class="minimize">_</button>
+        <button class="close">×</button>
+      </div>
+    </div>
+
+    <div class="window-content">
+      <img src="certif1.pdf" width="100%">
+      <img src="certif2.pdf" width="100%">
+      <img src="certif3.pdf" width="100%">
     </div>
   </div>
 </template>
