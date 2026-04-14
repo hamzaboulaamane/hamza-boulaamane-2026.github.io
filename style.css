@@ -1,131 +1,89 @@
-/* Define the background image in a variable */
 :root {
   --desktop-bg: url('image.png');
 }
 
-/* Desktop */
 body, html {
   margin: 0;
-  padding: 0;
   height: 100%;
+  overflow: hidden;
   font-family: monospace;
   background: var(--desktop-bg) no-repeat center center fixed;
   background-size: cover;
-  overflow: hidden;
 }
 
-/* Desktop grid */
+/* Desktop */
 #desktop {
   display: grid;
   grid-template-columns: repeat(auto-fit, 80px);
-  grid-auto-rows: 100px;
   gap: 20px;
   padding: 20px;
-  justify-items: center;
-  align-items: center;
 }
 
 .icon {
-  position: relative;
   text-align: center;
   cursor: pointer;
+  color: white;
+  transition: 0.2s;
 }
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
 .icon img {
   width: 48px;
   height: 48px;
 }
 
-/* Window Styles */
+/* Window */
 .window {
   position: absolute;
-  width: 400px;
-  height: 300px;
-  background-color: #1e1e1e;
-  border: 2px solid #555;
-  border-radius: 8px;
+  width: 420px;
+  height: 320px;
+  background: #1e1e1e;
   color: white;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  animation: fadeIn 0.3s ease;
-  resize: both;
-  overflow: hidden;
-  z-index: 10;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .window-header {
-  background: #333;
-  padding: 5px 10px;
+  background: #2b2b2b;
+  padding: 6px;
   cursor: move;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.window-controls button {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 .window-content {
   flex: 1;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
   overflow: auto;
 }
 
-.output {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 5px;
-}
-
-.input-line {
-  display: flex;
-  align-items: center;
-}
-
-.input-line input {
-  background: black;
-  border: none;
-  color: white;
-  flex: 1;
-  outline: none;
-  font-family: monospace;
-}
-
+/* Taskbar */
 #taskbar {
   position: fixed;
   bottom: 0;
-  left: 0;
-  height: 40px;
   width: 100%;
-  background: rgba(50,50,50,0.9);
+  height: 40px;
+  background: rgba(0,0,0,0.7);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-  box-sizing: border-box;
-  font-family: monospace;
   color: white;
-  z-index: 1000;
 }
 
-#tasks {
-  display: flex;
-  gap: 10px;
+#tasks button {
+  margin: 2px;
 }
 
-#clock {
-  font-family: monospace;
-  font-size: 14px;
+/* Animation */
+.window {
+  animation: fadeIn 0.2s ease;
 }
 
-/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.8);}
-  to { opacity: 1; transform: scale(1);}
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

@@ -1,45 +1,74 @@
 const desktop = document.getElementById('desktop');
 const windowsContainer = document.getElementById('windows');
-const terminalTemplate = document.getElementById('terminal-template');
 const tasks = document.getElementById('tasks');
+
+// ✅ Templates mapping (IMPORTANT)
+const templates = {
+  terminal: 'terminal-template',
+  cv: 'cv-template',
+  education: 'education-template',
+  about: 'about-template',
+  projects: 'projects-template',
+  certificates: 'certificates-template',
+  contact: 'contact-template'
+};
+
+// 🌐 External links (like X)
+const externalLinks = {
+  x: 'https://twitter.com/YOUR_USERNAME'
+};
 
 // Clock
 function updateClock() {
   const now = new Date();
-  const time = now.toLocaleTimeString();
-  document.getElementById('clock').textContent = time;
+  document.getElementById('clock').textContent = now.toLocaleTimeString();
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-// Open Window
-desktop.querySelectorAll('.icon[data-window]').forEach(icon => {
-  icon.addEventListener('dblclick', () => openWindow(icon.dataset.window));
+// 🖱️ Desktop icon click
+desktop.querySelectorAll('.icon').forEach(icon => {
+  icon.addEventListener('dblclick', () => {
+    const type = icon.dataset.window;
+
+    // 👉 External link case (X)
+    if (!type && icon.onclick) return;
+
+    if (externalLinks[type]) {
+      window.open(externalLinks[type], '_blank');
+      return;
+    }
+
+    openWindow(type);
+  });
 });
 
+// 🪟 Open Window (MODERN VERSION)
 function openWindow(type) {
-  let win = terminalTemplate.content.cloneNode(true).querySelector('.window');
-  
-  if(type !== 'terminal') {
-    win.querySelector('.window-title').textContent = type.charAt(0).toUpperCase() + type.slice(1);
-    win.querySelector('.output').innerHTML = `<p>${type} content goes here.</p>`;
-  }
-  
+  const templateId = templates[type];
+
+  if (!templateId) return;
+
+  const template = document.getElementById(templateId);
+  const win = template.content.cloneNode(true).querySelector('.window');
+
   windowsContainer.appendChild(win);
+
   makeDraggable(win);
   addTask(win);
-  
+
   // Close button
   win.querySelector('.close').addEventListener('click', () => {
     removeTask(win);
     win.remove();
   });
 
-  // Terminal command input
-  const input = win.querySelector('.command-input');
-  if(input) {
+  // Terminal logic ONLY
+  if (type === 'terminal') {
+    const input = win.querySelector('.command-input');
+
     input.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter') {
+      if (e.key === 'Enter') {
         const output = win.querySelector('.output');
         const cmd = input.value.trim();
         handleCommand(cmd, output);
@@ -49,43 +78,62 @@ function openWindow(type) {
   }
 }
 
-// Terminal Commands
+// 💻 Terminal commands
 function handleCommand(cmd, output) {
   let result = '';
-  switch(cmd.toLowerCase()) {
+
+  switch (cmd.toLowerCase()) {
     case 'help':
-      result = 'Available commands: help, about, projects, clear';
+      result = 'Available commands: help, about, projects, cv, education, clear';
       break;
+
     case 'about':
       result = 'Hi, I am Hamza. Welcome to HamzaOS!';
       break;
+
     case 'projects':
       result = 'Projects: Web Portfolio, AI Classifier, etc.';
       break;
+
+    case 'cv':
+      openWindow('cv');
+      return;
+
+    case 'education':
+      openWindow('education');
+      return;
+
     case 'clear':
       output.innerHTML = '';
       return;
+
     default:
       result = `Command not found: ${cmd}`;
   }
+
   output.innerHTML += `<p>${result}</p>`;
   output.scrollTop = output.scrollHeight;
 }
 
-// Draggable Windows
+// 🧲 Drag windows
 function makeDraggable(win) {
   const header = win.querySelector('.window-header');
-  let offsetX = 0, offsetY = 0, isDown = false;
+  let isDown = false;
+  let offsetX = 0;
+  let offsetY = 0;
 
   header.addEventListener('mousedown', (e) => {
     isDown = true;
+
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
+
     win.style.zIndex = Date.now();
   });
 
   document.addEventListener('mousemove', (e) => {
-    if(!isDown) return;
+    if (!isDown) return;
+
     win.style.left = e.clientX - offsetX + 'px';
     win.style.top = e.clientY - offsetY + 'px';
   });
@@ -95,28 +143,23 @@ function makeDraggable(win) {
   });
 }
 
-// Taskbar
+// 📌 Taskbar
 function addTask(win) {
   const taskBtn = document.createElement('button');
   taskBtn.textContent = win.querySelector('.window-title').textContent;
 
-  // Toggle window visibility
   taskBtn.addEventListener('click', () => {
-    if(win.style.display === 'none') win.style.display = 'flex';
-    else win.style.display = 'none';
-    // bring to front
+    win.style.display = win.style.display === 'none' ? 'flex' : 'none';
     win.style.zIndex = Date.now();
   });
 
   tasks.appendChild(taskBtn);
-
-  // Store the actual button element in a property of the window
   win.taskBtn = taskBtn;
 }
 
 function removeTask(win) {
-  if(win.taskBtn) {
-    win.taskBtn.remove();  // remove button from DOM
-    delete win.taskBtn;    // optional cleanup
+  if (win.taskBtn) {
+    win.taskBtn.remove();
+    delete win.taskBtn;
   }
 }
