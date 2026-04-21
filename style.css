@@ -30,13 +30,13 @@ body::before {
   position: relative;
   z-index: 2;
 
-  display: flex;              /* ✅ one horizontal line */
+  display: flex;
   align-items: flex-start;
 
-  gap: 30px;                  /* spacing between icons */
+  gap: 30px;
   padding: 30px;
 
-  overflow-x: auto;          /* scroll if too many icons */
+  overflow-x: auto;
   overflow-y: hidden;
 }
 
@@ -61,7 +61,7 @@ body::before {
   cursor: pointer;
 
   transition: transform 0.2s ease;
-  flex-shrink: 0; /* prevent shrinking */
+  flex-shrink: 0;
 }
 
 .icon:hover {
@@ -106,7 +106,6 @@ body::before {
 
   z-index: 10;
 
-  /* ✅ responsive safety */
   max-width: 90vw;
   max-height: 80vh;
 }
@@ -128,6 +127,18 @@ body::before {
   flex: 1;
   padding: 10px;
   overflow: auto;
+}
+
+/* ================= WINDOW MAXIMIZE (NEW ADDITION) ================= */
+
+.window.maximized {
+  top: 0 !important;
+  left: 0 !important;
+
+  width: 100vw !important;
+  height: calc(100vh - 40px) !important;
+
+  border-radius: 0;
 }
 
 /* Buttons */
@@ -172,7 +183,7 @@ body::before {
   display: flex;
   gap: 6px;
 
-  overflow-x: auto; /* ✅ prevents overflow */
+  overflow-x: auto;
 }
 
 #tasks button {
@@ -199,7 +210,6 @@ body::before {
 
 @media (max-width: 768px) {
 
-  /* 🔥 convert desktop icons to grid */
   #desktop {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -218,7 +228,6 @@ body::before {
     font-size: 11px;
   }
 
-  /* 🔥 windows adapt to screen */
   .window {
     width: 95vw;
     height: 85vh;
@@ -227,7 +236,6 @@ body::before {
     left: 2.5vw !important;
   }
 
-  /* taskbar wraps */
   #taskbar {
     flex-wrap: wrap;
     height: auto;

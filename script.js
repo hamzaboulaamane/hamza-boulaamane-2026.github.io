@@ -13,10 +13,8 @@ const templates = {
   contact: 'contact-template'
 };
 
-// External links
-const externalLinks = {
-  x: 'https://twitter.com/YOUR_USERNAME'
-};
+// Prevent duplicate windows
+const openWindows = {};
 
 // Clock
 function updateClock() {
@@ -31,16 +29,11 @@ desktop.querySelectorAll('.icon').forEach(icon => {
 
   const open = () => {
     const type = icon.dataset.window;
-
-    if (externalLinks[type]) {
-      window.open(externalLinks[type], '_blank');
-      return;
-    }
+    if (!type) return;
 
     openWindow(type);
   };
 
-  icon.addEventListener('dblclick', open);
   icon.addEventListener('click', open);
 
   icon.addEventListener('keydown', (e) => {
@@ -56,19 +49,47 @@ function openWindow(type) {
   const templateId = templates[type];
   if (!templateId) return;
 
+  // Prevent duplicate windows
+  if (openWindows[type]) {
+    focusWindow(openWindows[type]);
+    return;
+  }
+
   const template = document.getElementById(templateId);
   if (!template) return;
 
   const win = template.content.cloneNode(true).querySelector('.window');
   windowsContainer.appendChild(win);
 
+  openWindows[type] = win;
+
   makeDraggable(win);
   addTask(win);
+  focusWindow(win);
 
+  // Close
   win.querySelector('.close').addEventListener('click', () => {
     removeTask(win);
+    delete openWindows[type];
     win.remove();
   });
+
+  // MAXIMIZE BUTTON
+  const maxBtn = win.querySelector('.maximize');
+  if (maxBtn) {
+    maxBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      win.classList.toggle('maximized');
+    });
+  }
+
+  // Double click header to maximize
+  const header = win.querySelector('.window-header');
+  if (header) {
+    header.addEventListener('dblclick', () => {
+      win.classList.toggle('maximized');
+    });
+  }
 
   // Terminal logic
   if (type === 'terminal') {
@@ -83,6 +104,14 @@ function openWindow(type) {
       }
     });
   }
+
+  // Focus on click
+  win.addEventListener('mousedown', () => focusWindow(win));
+}
+
+// Focus system
+function focusWindow(win) {
+  win.style.zIndex = Date.now();
 }
 
 // Terminal commands
@@ -91,7 +120,7 @@ function handleCommand(cmd, output) {
 
   switch (cmd.toLowerCase()) {
     case 'help':
-      result = 'Available commands: help, about, projects, cv, education, clear';
+      result = 'Available: help, about, projects, cv, education, clear';
       break;
 
     case 'about':
@@ -99,7 +128,7 @@ function handleCommand(cmd, output) {
       break;
 
     case 'projects':
-      result = 'Projects: Web Portfolio, AI Classifier, etc.';
+      result = 'Projects: Web Portfolio, AI Classifier...';
       break;
 
     case 'cv':
@@ -122,7 +151,7 @@ function handleCommand(cmd, output) {
   output.scrollTop = output.scrollHeight;
 }
 
-// Drag (Mouse + Touch)
+// Drag system
 function makeDraggable(win) {
   const header = win.querySelector('.window-header');
   let isDown = false;
@@ -130,6 +159,10 @@ function makeDraggable(win) {
   let offsetY = 0;
 
   function startDrag(e) {
+
+    // prevent dragging if maximized
+    if (win.classList.contains('maximized')) return;
+
     isDown = true;
 
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -138,7 +171,7 @@ function makeDraggable(win) {
     offsetX = clientX - win.offsetLeft;
     offsetY = clientY - win.offsetTop;
 
-    win.style.zIndex = Date.now();
+    focusWindow(win);
   }
 
   function drag(e) {
@@ -172,7 +205,7 @@ function addTask(win) {
 
   taskBtn.addEventListener('click', () => {
     win.style.display = win.style.display === 'none' ? 'flex' : 'none';
-    win.style.zIndex = Date.now();
+    focusWindow(win);
   });
 
   tasks.appendChild(taskBtn);
